@@ -1,0 +1,48 @@
+DJANGO 
+trans_app_backend/
+├── manage.py
+├── media/                    # Thư mục lưu trữ file âm thanh
+│   ├── temp_audio/           # File âm thanh tạm thời từ frontend
+│   └── tts/                  # File âm thanh được tạo bởi gTTS
+├── models/                   # Thư mục chứa các mô hình AI
+│   ├── phowhisper/           # Mô hình PhoWhisper (các file liên quan)
+│   │   └── phowhisper_model  # File mô hình (giả sử là .gguf hoặc tương tự)
+│   └── translation_model/    # Mô hình dịch văn bản
+│       └── translation_model # File mô hình (giả sử là .pt hoặc .bin)
+├── trans_app/                # Dự án Django chính
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── api/                      # App Django để xử lý API
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations/
+│   ├── models.py             # Mô hình dữ liệu (nếu cần lưu lịch sử)
+│   ├── tests.py
+│   ├── urls.py               # URL routing cho API
+│   └── views.py              # Xử lý logic API
+└── requirements.txt          # Danh sách các thư viện cần thiết
+REACT NATIVE with expo
+trans_app_frontend/
+├── assets/                   # Tài nguyên tĩnh
+│   ├── icon.png
+│   └── splash.png
+├── src/                      # Thư mục chứa mã nguồn chính
+│   ├── components/           # Các thành phần giao diện
+│   │   ├── AudioRecorder.js
+│   │   ├── TextInputBox.js
+│   │   └── AudioPlayer.js
+│   ├── screens/              # Các màn hình chính
+│   │   └── HomeScreen.js
+│   ├── api/                  # Xử lý API calls
+│   │   └── api.js
+│   ├── utils/                # Các hàm tiện ích
+│   │   └── constants.js
+│   └── App.js                # File chính
+├── .gitignore
+├── app.json                  # Cấu hình Expo
+├── babel.config.js
+├── package.json
+└── README.md

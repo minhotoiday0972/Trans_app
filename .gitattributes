@@ -1,0 +1,2 @@
+trans_app_backend/models/PhoWhisper-small/** filter=lfs diff=lfs merge=lfs -text
+trans_app_backend/models/opus-mt-vi-en/** filter=lfs diff=lfs merge=lfs -text
