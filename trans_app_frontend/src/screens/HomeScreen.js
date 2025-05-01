@@ -1,22 +1,35 @@
+// HomeScreen.js
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert, Button, ActivityIndicator, SafeAreaView } from 'react-native';
 import AudioRecorder from '../components/AudioRecorder';
 import TextInputBox from '../components/TextInputBox';
 import AudioPlayer from '../components/AudioPlayer';
-import { transcribeAudio, translateText, textToSpeech } from '../api/api';
+import api from '../api/api';
 import * as FileSystem from 'expo-file-system';
+import { initializeApiUrl, setApiUrl } from '../utils/fetchBaseUrl';
+import { colors } from '../utils/colors';
 
 const HomeScreen = ({ apiUrl }) => {
   const [inputText, setInputText] = useState('');
   const [translation, setTranslation] = useState('');
   const [speechUrl, setSpeechUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  if (!apiUrl) {
+  if (!apiUrl && !error) {
     return (
       <View style={styles.container}>
         <ActivityIndicator size="large" color="#ff6f61" />
         <Text>Đang kết nối với server...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.errorText}>{error}</Text>
+        <Button title="Thử lại" onPress={() => initializeApiUrl().then(setApiUrl).catch(setError)} />
       </View>
     );
   }
@@ -45,7 +58,7 @@ const HomeScreen = ({ apiUrl }) => {
         throw new Error('Không có kết nối mạng');
       }
 
-      const transcription = await transcribeAudio(newUri, apiUrl); // Thêm apiUrl
+      const transcription = await api.transcribeAudio(newUri, apiUrl);
       setInputText(transcription);
 
       await FileSystem.deleteAsync(newUri);
@@ -67,9 +80,9 @@ const HomeScreen = ({ apiUrl }) => {
       if (!isNetworkAvailable) {
         throw new Error('Không có kết nối mạng');
       }
-      const translation = await translateText(inputText, apiUrl); // Thêm apiUrl
+      const translation = await api.translateText(inputText, apiUrl);
       setTranslation(translation);
-      const url = await textToSpeech(translation, apiUrl); // Thêm apiUrl
+      const url = await api.textToSpeech(translation, apiUrl);
       setSpeechUrl(url);
     } catch (error) {
       Alert.alert('Lỗi', 'Không thể dịch hoặc tạo âm thanh: ' + error.message);
@@ -81,10 +94,7 @@ const HomeScreen = ({ apiUrl }) => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* Header */}
         <Text style={styles.headerText}>TransApp</Text>
-
-        {/* Main Content */}
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Phiên âm và Dịch</Text>
           <AudioRecorder onRecordingComplete={handleRecordingComplete} />
@@ -120,71 +130,79 @@ const HomeScreen = ({ apiUrl }) => {
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  headerText: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
-    textAlign: 'center',
-    marginBottom: 20,
+  buttonContainer: {
+    borderRadius: 8,
+    marginVertical: 10,
+    overflow: 'hidden',
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.backgroundWhite,
     borderRadius: 10,
-    padding: 20,
+    elevation: 3,
     marginBottom: 20,
-    shadowColor: '#000',
+    padding: 20,
+    shadowColor: colors.shadowBlack,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 3,
   },
   cardTitle: {
+    color: colors.textDark,
     fontSize: 20,
     fontWeight: '600',
-    color: '#333',
-    textAlign: 'center',
     marginBottom: 15,
+    textAlign: 'center',
+  },
+  container: {
+    backgroundColor: colors.backgroundWhite,
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+  },
+  errorText: {
+    color: colors.errorRed,
+    fontSize: 16,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  headerText: {
+    color: colors.textDark,
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
   },
   input: {
-    marginBottom: 15,
+    backgroundColor: colors.backgroundGray,
+    borderColor: colors.borderGray,
+    borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
+    marginBottom: 15,
     padding: 10,
-    backgroundColor: '#fafafa',
-  },
-  buttonContainer: {
-    marginVertical: 10,
-    borderRadius: 8,
-    overflow: 'hidden',
   },
   loading: {
     marginVertical: 15,
   },
   resultContainer: {
+    backgroundColor: colors.backgroundLighter,
+    borderRadius: 8,
     marginVertical: 15,
     padding: 10,
-    backgroundColor: '#f9f9f9',
-    borderRadius: 8,
   },
   resultLabel: {
+    color: colors.textDark,
     fontSize: 16,
     fontWeight: '600',
-    color: '#333',
     marginBottom: 5,
   },
   resultText: {
+    color: colors.textDark,
     fontSize: 16,
-    color: '#333',
+  },
+  safeArea: {
+    backgroundColor: colors.backgroundLight,
+    flex: 1,
   },
 });
 
-export default HomeScreen;
+export { HomeScreen };

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Alert, Platform } from 'react-native';
+import { Button, Alert} from 'react-native';
 import { Audio } from 'expo-av';
 
-const AudioRecorder = ({ onRecordingComplete }) => {
+export function AudioRecorder({ onRecordingComplete }) {
   const [recording, setRecording] = useState(null);
   const [hasAudioPermission, setHasAudioPermission] = useState(false);
 
@@ -104,5 +104,3 @@ const AudioRecorder = ({ onRecordingComplete }) => {
     </>
   );
 };
-
-export default AudioRecorder;

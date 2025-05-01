@@ -165,4 +165,4 @@ const api = {
   }
 };
 
-export default api;
+export {api};

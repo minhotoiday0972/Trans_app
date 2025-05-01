@@ -21,7 +21,6 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.mrx007.trans_app_frontend",
-      "jsEngine": "jsc",
       "permissions": [
         "android.permission.RECORD_AUDIO",
         "android.permission.MODIFY_AUDIO_SETTINGS",
@@ -44,7 +43,7 @@
       "expo-file-system"
     ],
     "packagerOpts": {
-      "config": "metro.config.js",
+      "config": "metro.config.cjs",
       "sourceExts": [
         "js",
         "jsx",
@@ -52,6 +51,17 @@
         "tsx",
         "json"
       ]
-    }
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/367acd47-cb9f-42c3-8b0c-05eb8c78d538"
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "assetBundlePatterns": [
+      "assets/*"
+    ],
+    "jsEngine": "hermes"
   }
 }

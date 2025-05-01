@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Alert } from 'react-native';
 import { Audio } from 'expo-av';
 
-const AudioPlayer = ({ url }) => {
+export function AudioPlayer({ url }) {
   const playSound = async () => {
     try {
       const { sound } = await Audio.Sound.createAsync({ uri: url });
@@ -14,5 +14,3 @@ const AudioPlayer = ({ url }) => {
 
   return <Button title="Phát Âm Thanh" onPress={playSound} />;
 };
-
-export default AudioPlayer;

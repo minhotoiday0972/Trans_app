@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextInput, StyleSheet } from 'react-native';
+import { colors } from '../utils/colors';
 
 const TextInputBox = ({ value, onChangeText }) => {
   return (
@@ -15,13 +16,13 @@ const TextInputBox = ({ value, onChangeText }) => {
 
 const styles = StyleSheet.create({
   input: {
-    height: 100,
-    borderColor: 'gray',
+    borderColor: colors.borderGray,
     borderWidth: 1,
-    width: '100%',
+    height: 100,
     marginVertical: 10,
     padding: 10,
+    width: '100%',
   },
 });
 
-export default TextInputBox;
+export { TextInputBox };

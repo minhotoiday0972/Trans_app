@@ -3,20 +3,14 @@ module.exports = function(api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
-      '@babel/plugin-transform-modules-commonjs'
+      '@babel/plugin-transform-modules-commonjs',
+      ['@babel/plugin-proposal-export-namespace-from']
     ],
-    env: {
-      production: {
-        plugins: [],
-      },
-    },
     sourceMaps: true,
-    ignore: [],
-    overrides: [
-      {
-        test: /node_modules\/.*\.(ts|tsx)$/,
-        presets: ['@babel/preset-typescript'],
-      },
+    ignore: [
+      "node_modules/lodash/**/*",
+      "node_modules/core-js/**/*"
     ],
+    compact: true,
   };
 };

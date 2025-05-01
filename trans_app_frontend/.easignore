@@ -1,0 +1,58 @@
+# Thư mục
+node_modules
+.expo
+.expo-shared
+.git
+.github
+android
+ios
+web-build
+.vscode
+.idea
+coverage
+docs
+dist
+build
+__tests__
+
+# File tạm thời
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+*.log
+.env*
+.DS_Store
+
+# Package manager
+package-lock.json
+yarn.lock
+.npm
+.yarn
+
+# Media (bỏ qua tất cả, kể cả trong assets)
+*.mp3
+*.mp4
+*.wav
+*.mov
+*.avi
+*.webm
+
+# Docs
+*.md
+LICENSE
+*.txt
+
+# Cache
+.cache
+
+# Chỉ cho phép các file hình ảnh cần thiết trong assets
+!assets/icon.png
+!assets/splash-icon.png
+!assets/adaptive-icon.png
+!assets/favicon.png

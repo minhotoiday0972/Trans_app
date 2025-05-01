@@ -1,31 +1,25 @@
 {
-  "cli": {
-    "version": ">= 5.9.3"
-  },
   "build": {
     "development": {
       "developmentClient": true,
       "distribution": "internal",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleDebug"
       },
-      "channel": "development"
+      "channel": "development",
+      "autoIncrement": true
     },
     "preview": {
       "distribution": "internal",
       "android": {
         "buildType": "apk"
       },
-      "channel": "preview"
-    },
-    "production": {
-      "android": {
-        "buildType": "apk"
-      },
-      "channel": "production"
+      "channel": "preview",
+      "autoIncrement": true
     }
   },
-  "submit": {
-    "production": {}
+  "cli": {
+    "appVersionSource": "remote"
   }
 }
